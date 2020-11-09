@@ -15,7 +15,8 @@ In this notebook you will train your first neural network. Feel free to look bac
 #### Install dependencies freeze by poetry
 """
 
-
+#!python3 -m pip install --upgrade pip
+#!python3 -m pip install matplotlib numpy scikit-learn==0.23.2
 
 """#### Import the different module we will need in this notebook 
 
@@ -303,11 +304,11 @@ It's on 12 points because there is a lot of functions to fill but also we want t
 To have all the point your neural network needs to have a Test accuracy > 92 % !!
 """
 
-minibatch_size = 140
+minibatch_size = 50
 nepoch = 30
-learning_rate = 0.12
+learning_rate = 0.17
 
-ffnn = FFNN(config=[784,300,100, 10], minibatch_size=minibatch_size, learning_rate=learning_rate)
+ffnn = FFNN(config=[784,150,80, 10], minibatch_size=minibatch_size, learning_rate=learning_rate)
 
 assert X_train.shape[0] % minibatch_size == 0
 assert X_test.shape[0] % minibatch_size == 0
@@ -321,7 +322,7 @@ Here we use a subset of the test data to try and find some miss classification.
 It will help us understand why the neural network failed sometimes to classify images.
 """
 
-nsample = 1000
+nsample = 2310
 X_demo = X_test[:nsample,:]
 y_demo = ffnn.forward_pass(X_demo)
 y_true = y_test[:nsample]
@@ -361,19 +362,20 @@ Also explain how the neural network behave when changing them ?
 ## Open analysis answer
 
 TODO
-"""
-"""
-nepoch est le nombre de fois où l'on va entrainer notre réseau de neurone. Plus on l'entraine, meilleure devient l'accuracy mais celle-ci converge au bout d'un moment à cause du learning learning rate. 
-J'ai choisi nepoch=30 pour donner le temps au réseau de neurone de trouver la meilleure training accuracy (97.6%). Il faut que nepoch soit suffisament grand pour donner le temps au réseau de converger vers un test accuracy maximal
 
-config donne la taille de notre réseau de neurones en couches.Ici, nous avons 784 neurones en entrées puis 300 puis 100 puis 10 (4 couches au total avec 2 hidden layers). Si la taille de config augmente (on rajoute une couche),
+nepoch est le nombre de fois où l'on va entrainer notre réseau de neurone. Plus on l'entraine, meilleure devient l'accuracy mais celle-ci converge au bout d'un moment à cause du learning learning rate. 
+J'ai choisi nepoch=30 pour donner le temps au réseau de neurone de trouver la meilleure training accuracy (97%). Il faut que nepoch soit suffisament grand pour donner le temps au réseau de converger vers un test accuracy maximal
+
+config donne la taille de notre réseau de neurones en couches.Ici, nous avons 784 neurones en entrées puis 150 puis 80 puis 10 (4 couches au total avec 2 hidden layers). Si la taille de config augmente (on rajoute une couche),
 il faut baisser le learning rate.
 
-Le learning_rate est un coefficient "d'apprentissage" qui va faire varier les poids lorsque ceux-ci seront mis à jour. Plus le learning_rate est élevé plus la variation sera forte. J'ai choisi 0.09 car il y a 4 couches et
+Le learning_rate est un coefficient "d'apprentissage" qui va faire varier les poids lorsque ceux-ci seront mis à jour. Plus le learning_rate est élevé plus la variation sera forte. J'ai choisi 0.17 car il y a 4 couches et
 30 nepoch donc le réseau peut beaucoup optimiser son test_accuracy (30 nepoch donc 30 aller-retour dans le réseau de neurones).Si l'on augmente le learning rate, il faut augmenter nepoch pour pouvoir donner le temps d'apprendre.
 Cependant le learning rate ne doit pas etre trop élevé sinon le test_accuracy n'aura pas le temps de se stabiliser. 
 Plus le learning rate est élevé plus le reseau apprend rapidement. Toutefois attention à ce qu'il ne soit pas trop élevé sinon le training accuracy sera très faible
+On remarque que pour garder la valeur que pour training accuracy, il faut multiplier par deux le learning rate si on enleve une couche, et divisiser par deux si on en rajoute une
 
-minibatch_size correspond à un echantillon de notre training set. On divise notre training set en plusieurs parties de taille minibatch_size. J'ai décidé de diviser en 100. Si le minibatch a une taille très petite par rapport 
+minibatch_size correspond à un echantillon de notre training set. On divise notre training set en plusieurs parties de taille minibatch_size. J'ai décidé de diviser en 50. Si le minibatch a une taille très petite par rapport 
 aux hidden layers, le réseau mettra beaucoup trop de temps à apprendre. A l'inverse un minibatch trop grand ne laissera pas le temps d'apprendre(à moins d'augmenter le learning rate).
+Remarque sur le minibatch size: il faut qu'il soit superieur ou égal à la taille d'une des layers.
 """
