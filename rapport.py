@@ -138,7 +138,8 @@ def d_sigmoid(M: np.array)-> np.array:
 def softmax(X: np.array)-> np.array:
     """Apply a softmax to the input array"""
     # TODO
-    return np.exp(X - np.max(X))/sum(np.exp(X))
+    sum_dem = np.sum(np.exp(X), axis=1).reshape(-1,1)
+    return np.exp(X) / sum_dem
 
 """## Feed forward NN
 
