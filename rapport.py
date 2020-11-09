@@ -377,5 +377,4 @@ On remarque que pour garder la valeur que pour training accuracy, il faut multip
 
 minibatch_size correspond à un echantillon de notre training set. On divise notre training set en plusieurs parties de taille minibatch_size. J'ai décidé de diviser en 50. Si le minibatch a une taille très petite par rapport 
 aux hidden layers, le réseau mettra beaucoup trop de temps à apprendre. A l'inverse un minibatch trop grand ne laissera pas le temps d'apprendre(à moins d'augmenter le learning rate).
-Remarque sur le minibatch size: il faut qu'il soit superieur ou égal à la taille d'une des layers.
 """
